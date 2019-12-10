@@ -1,0 +1,59 @@
+{% extends 'food/base.html' %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel = "stylesheet" href = {% static 'food/style.css' %} > 
+</head>
+<body>
+    <nav class = "navbar navbar-dark bg-dark">
+        <a href = '#' class "navbar-brand">App Configuration</a>
+
+        <div class = "navbar">
+            <a class="nav-item nav-link" href ='#' >Menu</a>
+            <a class="nav-item nav-link" href ='#' >New Request</a>
+            <a class="nav-item nav-link" href ='#' >Go!</a>
+
+        </div>
+    </nav>
+
+    {% block body %}
+    {% for item in item_list %}
+    <div class = "row">
+        <div class = "col-md-3 offset-md-2">
+            <img class = "card" height = "150px" width="200px" src = "{{ item.item_image }}" />
+            
+        </div>
+
+        <div class ='col-md-4'>
+            <h3>{{item.item_name}}</h3>
+            <h5> {{ item.item_desc }}</h5>
+            <h6> {{ item.item_price }}</h6>
+        </div>
+        <div class = "col-md-2">
+             <a href ="{{ item.id }}" class="btn btn-success">Details</a>
+        </div>
+    </div>
+
+
+
+
+
+    {% endfor %}   
+    {% endblock %}
+
+</body>
+</html>
+
+
+
+
+<ul>
+        The item name is: <a href = '{{item.id}}'> {{item.item_name}}</a>
+        The description is : {{item.item_desc}}
+    </li>
