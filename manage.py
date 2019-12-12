@@ -1,4 +1,5 @@
 #!/usr/bin/env python
+#This file contains all the command line functionality
 """Django's command-line utility for administrative tasks."""
 import os
 import sys
