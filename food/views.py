@@ -35,13 +35,3 @@ def create_item(request):
         return redirect('food')
     
     return render(request, 'food/item-form.html', {'form': form})
-
- 
-
-
-
-
-
-
-
-
