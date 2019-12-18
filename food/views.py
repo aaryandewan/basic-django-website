@@ -3,16 +3,20 @@ from django.http import HttpResponse, HttpResponseRedirect
 from .models import Item
 from django.template import loader
 from .forms import ItemForm
+from django.views.generic.list import ListView
+from django.views.generic.detail import DetailView
+from django.views.generic.edit import CreateView
 
-def index(request):
-    item_list = Item.objects.all()
-    template = loader.get_template('food/index.html')
-    #return HttpResponse(item_list)
-    context = {
-        'item_list': item_list,
-    }
-    return HttpResponse(template.render(context, request))
-    #return render(request, 'food/index.html', context)
+
+class IndexClassView(ListView):
+    model = Item
+    template_name = 'food/index.html'
+    context_object_name = 'item_list'
+
+class FoodDetailView(DetailView):
+    model = Item
+    template_name = 'food/detail.html'
+
 
 def item(request):
     return HttpResponse("This  is an item view.")
@@ -27,14 +31,17 @@ def detail(request, item_id):
     }
     return render(request, 'food/detail.html', context)
 
-def create_item(request):
-    form = ItemForm(request.POST or None)
-    
-    if (form.is_valid()):
-        form.save()
-        return redirect('food/index')
-    
-    return render(request, 'food/item-form.html', {'form': form})
+
+#this is a class based view for create_item
+class CreateItem(CreateView):
+    model = Item
+    fields = ['item_name', 'item_desc', 'item_price', 'item_image' ]#We only specify those fields which we want to be present in our form
+    template_name = 'food/item-form.html'
+
+    def form_valid(self, form):
+        form.instance.user_name = self.request.user
+        return redirect('')
+        #return super().form_valid(form)
 
 
 def update_item(request, id):
