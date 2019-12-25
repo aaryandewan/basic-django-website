@@ -7,7 +7,6 @@ from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
 from django.views.generic.edit import CreateView
 
-
 class IndexClassView(ListView):
     model = Item
     template_name = 'food/index.html'
@@ -31,7 +30,6 @@ def detail(request, item_id):
     }
     return render(request, 'food/detail.html', context)
 
-
 #this is a class based view for create_item
 class CreateItem(CreateView):
     model = Item
@@ -41,8 +39,6 @@ class CreateItem(CreateView):
     def form_valid(self, form):
         form.instance.user_name = self.request.user
         return redirect('')
-        #return super().form_valid(form)
-
 
 def update_item(request, id):
     item = Item.objects.get(id = id)
